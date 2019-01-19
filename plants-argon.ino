@@ -1,5 +1,5 @@
 // -----------------------------------------
-// Publish Xenon data and Dashboard with Capacitive Moisture Sensors
+// Publish Argon data and Dashboard with Capacitive Moisture Sensors
 // -----------------------------------------
 // This app will publish an event every 30 seconds reporting the moisture sensor analog and percentage
 
@@ -34,9 +34,6 @@ void setup() {
 void loop() {
     /* In this loop function, we're going to check to read the moisture sensor
     After a specified time period we'll send a Particle.publish() to the cloud.
-    After Particle implements sleep capability we will also start placing the 
-    device in sleep mode for various intervals in between reads.
-
     */
 
     digitalWrite(boardLed,HIGH);
