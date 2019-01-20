@@ -10,7 +10,7 @@ int boardLed = D7; // This is the LED that is already on your device.
 // On the Core, it's the LED in the upper right hand corner.
 // On the Photon, it's next to the D7 pin.
 
-int moisture_pin = A0; // This is where your capacitive moisture sensor is plugged in.
+int moisture_pin = A1; // This is where your capacitive moisture sensor is plugged in.
 
 
 // We start with the setup function.
