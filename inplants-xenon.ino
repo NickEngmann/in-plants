@@ -36,12 +36,6 @@ void loop() {
     After a specified time period we'll send a Particle.publish() to the cloud.
     After Particle implements sleep capability we will also start placing the 
     device in sleep mode for various intervals in between reads.
-
-    Currently the Particle Firmware doesn't support the "Sleep" functionality.
-    The Sleep functionality allows the Particle Xenon/Argon to enter a low power 
-    or very low power state. When this state is enabled it will allow the battery 
-    life of the device to be exponentnailyl better. Unfortunately this update will
-    be coming out in a later firmware update.
     */
 
     digitalWrite(boardLed,HIGH);
@@ -52,12 +46,13 @@ void loop() {
         float voltage = analogRead(BATT) * 0.0011224;
         Particle.publish("plantStatus_voltage", String(voltage),60,PUBLIC);
     }
-    delay(7000);
+    // this delay keeps the device on for 15 seconds, incase it needs to be probed for an OTA update
+    delay(15000);
     // Send a publish to your devices...
     Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
     Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
     digitalWrite(boardLed,LOW);
+    // put device to sleep for 6 hours (21600 seconds)
+    System.sleep(D1,RISING,21600);
 
-    // System.sleep(30);
-    delay(30000);
 }

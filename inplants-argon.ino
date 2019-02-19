@@ -44,11 +44,12 @@ void loop() {
         float voltage = analogRead(BATT) * 0.0011224;
         Particle.publish("plantStatus_voltage", String(voltage),60,PUBLIC);
     }
-    delay(7000);
+    // this delay keeps the device on for 15 seconds, incase it needs to be probed for an OTA update
+    delay(15000);
     // Send a publish to your devices...
     Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
     Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
     digitalWrite(boardLed,LOW);
-
-    delay(30000);
+    // wait 60 seconds
+    delay(60000);
 }
