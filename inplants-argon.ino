@@ -29,8 +29,6 @@ void setup() {
 }
 
 
-// Now for the loop.
-
 void loop() {
     /* In this loop function, we're going to check to read the moisture sensor
     After a specified time period we'll send a Particle.publish() to the cloud.
@@ -44,12 +42,10 @@ void loop() {
         float voltage = analogRead(BATT) * 0.0011224;
         Particle.publish("plantStatus_voltage", String(voltage),60,PUBLIC);
     }
-    // this delay keeps the device on for 15 seconds, incase it needs to be probed for an OTA update
-    delay(15000);
     // Send a publish to your devices...
     Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
     Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
     digitalWrite(boardLed,LOW);
-    // wait 60 seconds
-    delay(60000);
+    // wait 10 minutes
+    delay(600000);
 }
