@@ -42,17 +42,26 @@ void loop() {
     // Now we'll take some readings...
     int moisture_analog = analogRead(moisture_pin); // read capacitive sensor
     float moisture_percentage = (100 - ( (moisture_analog/4095.00) * 100 ) );
-    if(BATT){
+    if(BATT > 1){
         float voltage = analogRead(BATT) * 0.0011224;
         Particle.publish("plantStatus_voltage", String(voltage),60,PUBLIC);
+        // wait 2 minutes
+         delay(120000);
+        // Send a publish to your devices...
+        Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
+        Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
+        digitalWrite(boardLed,LOW);
+        put device to sleep for 12 hours (43200 seconds)
+        System.sleep(D1,RISING,43200);
     }
-    // this delay keeps the device on for 15 seconds, incase it needs to be probed for an OTA update or have code flashed
-    delay(15000);
-    // Send a publish to your devices...
-    Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
-    Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
-    digitalWrite(boardLed,LOW);
-    // put device to sleep for 20 hours (72000 seconds)
-    System.sleep(D1,RISING,72000);
+    else {
+        // Enters this branch if the device is plugged into a USB source and charging the battery
+        // wait 10 minutes
+        delay(600000);
+        // Send a publish to your devices...
+        Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
+        Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
+        digitalWrite(boardLed,LOW);
+    }
 
 }

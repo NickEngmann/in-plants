@@ -38,7 +38,7 @@ void loop() {
     // Now we'll take some readings...
     int moisture_analog = analogRead(moisture_pin); // read capacitive sensor
     float moisture_percentage = (100 - ( (moisture_analog/4095.00) * 100 ) );
-    if(BATT){
+    if(BATT > 1){
         float voltage = analogRead(BATT) * 0.0011224;
         Particle.publish("plantStatus_voltage", String(voltage),60,PUBLIC);
     }
@@ -46,6 +46,6 @@ void loop() {
     Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
     Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
     digitalWrite(boardLed,LOW);
-    // wait 10 minutes
-    delay(600000);
+    // wait 30 minutes
+    delay(1800000);
 }
