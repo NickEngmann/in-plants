@@ -1,5 +1,7 @@
 # In-Plants
 
+![Tests](https://github.com/NickEngmann/in-plants/actions/workflows/test.yml/badge.svg)
+
 🌱🌱🌱
 
 An IoT device used to check the humidity levels of your houseplants. Low powered, rechargeable, and powered by Particle's Mesh devices.
@@ -17,3 +19,9 @@ An IoT device used to check the humidity levels of your houseplants. Low powered
 - [Enclosure](https://www.thingiverse.com/thing:3437707)
 
 🌱🌱🌱
+
+## Running Tests
+
+```bash
+None
+```
