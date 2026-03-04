@@ -20,7 +20,7 @@ void setup() {
   pinMode(moisture_pin,INPUT);  // Our capacitive moisture sensor pin is input (reading the capacitive moisture sensor)
 
 
-  // Just to make sure everything is workign we are going to toggle the LED on and then off really quickly 3x
+  // Just to make sure everything is working we are going to toggle the LED on and then off really quickly 3x
   digitalWrite(boardLed,HIGH);
   delay(200);
   digitalWrite(boardLed,LOW);

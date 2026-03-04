@@ -20,7 +20,7 @@ void setup() {
   pinMode(moisture_pin,INPUT);  // Our capacitive moisture sensor pin is input (reading the capacitive moisture sensor)
 
 
-  // Just to make sure everything is workign we are going to toggle the LED on and then off really quickly 3x
+  // Just to make sure everything is working we are going to toggle the LED on and then off really quickly 3x
   digitalWrite(boardLed,HIGH);
   delay(200);
   digitalWrite(boardLed,LOW);
@@ -51,7 +51,7 @@ void loop() {
         Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
         Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
         digitalWrite(boardLed,LOW);
-        put device to sleep for 12 hours (43200 seconds)
+        // put device to sleep for 12 hours (43200 seconds)
         System.sleep(D1,RISING,43200);
     }
     else {
