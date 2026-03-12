@@ -46,12 +46,12 @@ void loop() {
         float voltage = analogRead(BATT) * 0.0011224;
         Particle.publish("plantStatus_voltage", String(voltage),60,PUBLIC);
         // wait 2 minutes
-         delay(120000);
+        delay(120000);
         // Send a publish to your devices...
         Particle.publish("plantStatus_analog", String(moisture_analog),60,PUBLIC);
         Particle.publish("plantStatus_percentage", String(moisture_percentage),60,PUBLIC);
         digitalWrite(boardLed,LOW);
-        put device to sleep for 12 hours (43200 seconds)
+        // put device to sleep for 12 hours (43200 seconds)
         System.sleep(D1,RISING,43200);
     }
     else {
