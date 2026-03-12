@@ -1,19 +1,78 @@
-# In-Plants
+# In-Plants Firmware
 
-🌱🌱🌱
+IoT firmware for Particle Mesh devices (Argon/Xenon) that monitors houseplant humidity using capacitive moisture sensors.
 
-An IoT device used to check the humidity levels of your houseplants. Low powered, rechargeable, and powered by Particle's Mesh devices.
+## Hardware Requirements
 
-[![Demo Video](/imgs/youtube.png)](https://youtu.be/zaqqBVdNWlM)
+- Particle Argon or Xenon device
+- Capacitive moisture sensor (connected to analog pin A1)
+- For Xenon: D1 pin for wake-up, BATT pin for battery monitoring
+- LED indicator on board LED pin (D7) for status feedback
 
-- ***NEW***: [Magic Mirror Module](https://github.com/NickEngmann/MMM-ParticleStatus)
+## Firmware Variants
 
-<img src="https://i.imgur.com/YmFRuTm.png" width="375">
+### Argon Variant (inplants-argon.ino)
+- Publishes moisture sensor data every 30 seconds
+- Reads capacitive moisture sensor on pin A1
+- LED blinks 3 times during startup to verify functionality
+- Uses USB power (no battery sleep mode)
 
-- [Instructions](https://github.com/NickEngmann/in-plants)
+### Xenon Variant (inplants-xenon.ino)
+- Battery-powered operation with sleep mode
+- Publishes moisture data when battery detected (BATT > 1)
+- Sleeps for 12 hours (43200 seconds) between readings on D1 wake-up
+- Publishes voltage readings when connected to USB power
+- LED status indicator on board LED (D7)
 
-- [Youtube Demo](https://youtu.be/zaqqBVdNWlM)
+## Data Publishing
 
-- [Enclosure](https://www.thingiverse.com/thing:3437707)
+The firmware publishes the following events to the Particle Cloud:
 
-🌱🌱🌱
+| Event Name | Description | Units |
+|------------|-------------|-------|
+| plantStatus_analog | Raw analog sensor reading | 0-4095 |
+| plantStatus_percentage | Calculated moisture percentage | 0-100% |
+| plantStatus_voltage | Battery voltage (Xenon only) | Volts |
+
+### Moisture Calculation
+
+Moisture percentage is calculated using the formula:
+```
+moisture_percentage = 100 - ((analog_reading / 4095.0) * 100)
+```
+
+This inverts the analog reading since higher moisture = lower resistance = higher analog value.
+
+### Voltage Calculation (Xenon)
+
+Voltage is calculated from the battery pin reading:
+```
+voltage = analogRead(BATT) * 0.0011224
+```
+
+## Pin Mappings
+
+| Pin | Function | Variant |
+|-----|----------|--------|
+| A1 | Capacitive moisture sensor | Both |
+| D7 | LED status indicator | Both |
+| D1 | Wake-up pin (sleep mode) | Xenon only |
+| BATT | Battery monitoring | Xenon only |
+
+## Setup Instructions
+
+1. Connect the capacitive moisture sensor to analog pin A1
+2. Upload the appropriate firmware (Argon or Xenon variant)
+3. Monitor sensor data via the Particle Console or integrate with your dashboard
+4. For Xenon: ensure D1 is connected to a button or sensor for wake-up functionality
+
+## Troubleshooting
+
+- LED not blinking during startup: Check LED connection or firmware upload
+- No sensor readings: Verify moisture sensor is connected to A1 and powered
+- Xenon not waking up: Ensure D1 wake-up circuit is properly configured
+- Inaccurate readings: Calibrate sensor in dry and wet conditions
+
+## License
+
+MIT License - See LICENSE file for details
