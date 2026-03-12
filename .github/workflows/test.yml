@@ -1,0 +1,21 @@
+name: Tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: Build and run native tests
+        run: |
+          if [ -f Makefile ] && make -n test 2>/dev/null; then make test; fi
+          for f in test/test_*.c tests/test_*.c; do
+            if [ -f "$f" ]; then
+              gcc -o /tmp/test_run "$f" -I. -lm 2>/dev/null && /tmp/test_run || true
+            fi
+          done

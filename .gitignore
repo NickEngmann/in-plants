@@ -1,1 +1,18 @@
 .DS_Store
+# Auto-added by Marisol pipeline
+.env
+.cache/
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+debug_*.py
+dist/
+*.egg-info/
+*.o
+*.so
+node_modules/
+.pio/
+.gradle/
+*.class
+local.properties
