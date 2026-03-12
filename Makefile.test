@@ -1,0 +1,27 @@
+# Test Makefile for in-plants firmware
+CC = gcc
+CFLAGS = -I. -I.pio/libdeps/native/Unity/src -I.pio/build/native/unity_config -Wall -Wextra
+UNITY_SRC = .pio/libdeps/native/Unity/src/unity.c
+TEST_SRC = test/test_sensor_data.c
+TEST_OBJ = test_sensor_data.o
+UNITY_OBJ = unity.o
+TEST_RUNNER = test_runner
+
+.PHONY: all clean test
+
+all: $(TEST_RUNNER)
+
+$(TEST_RUNNER): $(TEST_OBJ) $(UNITY_OBJ)
+	$(CC) $(CFLAGS) -o $@ $^ -lm
+
+$(TEST_OBJ): $(TEST_SRC)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(UNITY_OBJ): $(UNITY_SRC)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+test: $(TEST_RUNNER)
+	./$(TEST_RUNNER)
+
+clean:
+	rm -f $(TEST_OBJ) $(UNITY_OBJ) $(TEST_RUNNER)
